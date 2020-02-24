@@ -1,12 +1,11 @@
 #!/bin/bash
 
 # Script to move the interest data to a fittin data
-type_calc=$1
 ROOT=$( pwd )
 FITS_FOLDER="Fits"
 
-case $2 in  # Define the channel type
-    'g5') 
+case $1 in  # Define the channel type
+    "g5") 
         name_fit_folder="Pseudoscalar"
         channel_save_name="g5_Folder" ;;
     *)
@@ -37,7 +36,7 @@ for meson in $( ls -d concMeson* )
 do
 
     # Move into the hadron with definite type
-    cd ${meson}/${type_calc}
+    cd ${meson}/${TYPE_CALC}
 
     # Get the name of the file to generate its Folder_*
     chan_flavor=$( cd ${channel_save_name} && ls | sed "s/^/Folder_/" )
@@ -46,37 +45,37 @@ do
     cd $ROOT
 
     # Generate a folder to hold the data
-    mkdir -p ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/${chan_flavor}
+    mkdir -p ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/${chan_flavor}
 
     # Copy the files inside the folder relative to the channel
-    cp ./${meson}/${type_calc}/${channel_save_name}/* \
-        ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/${chan_flavor}/
+    cp ./${meson}/${TYPE_CALC}/${channel_save_name}/* \
+        ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/${chan_flavor}/
     
     # Copyt automat_fit file inside the folder to launch jobs
     cp ${RUN_FOLDER}/utils/automatic_fit.sh \
-        ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
+        ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/
     
     # Copy the launch_fit file inside the folder to launch jobs
     cp ${RUN_FOLDER}/utils/launch_fit.sh \
-        ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
+        ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/
 done
 
 # Copy the sed changes inside the folder
 cp ${RUN_FOLDER}/utils/sed_changes.sh \
-    ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
+    ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/
 
 # Copy the fit code inside the folder
 cp ${RUN_FOLDER}/utils/fit_code.tar.gz \
-    ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
+    ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/
 
 # Sed all the values using sed_changes.sh
-( cd ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/ && \
+( cd ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/ && \
     bash sed_changes.sh )
 
 # Extract the fit_code folder
-( cd ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/ && \
+( cd ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/ && \
     tar -xf fit_code.tar.gz )
 
 # Remove uneeded sed file
-rm ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/sed_changes.sh
+rm ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/sed_changes.sh
 
