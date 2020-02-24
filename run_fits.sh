@@ -26,27 +26,9 @@ do
 
     # Execute it with the current properties
     ( cd ${ROOT_FOLDER}/${nt_dir} && bash move_to_chan.sh ll g5 )
-    
-    # Change job name inside launcFit.sh
-# sed -i "/#SBATCH --job-name/c\#SBATCH --job-name=${dir}_${channelFit}_${typeCalc}" \
-    # launchFit.sh
-# sed -i "/#SBATCH --output/c\#SBATCH --output=${dir}_${channelFit}_${typeCalc}" \
-# launchFit.sh
-    
-    
-    ## Change the time extent in each file
-# timePoints=$( echo ${dir} | sed "s/x.*//" )
-#   sed -i "/timePoints=/c\timePoints=${timePoints}" automaticFit.sh 
 
-    # ## Copy and run moveToFolder to the directory
-# mkdir -p ${nameFolderSave}
-#     bash moveToFolder.sh && rm moveToFolder.sh
-#     cp ../scanRunServer/automaticFit.sh ./${nameFolderSave}
-#     cp ../scanRunServer/cppFitCode.tar.gz ./${nameFolderSave}
-#     cp ../scanRunServer/launchFit.sh ./${nameFolderSave}
-# 
-#     # Run the slurm job using launchFit.sh
-#     cd ./${nameFolderSave} && sbatch launchFit.sh
+    # Run the slurm job using launchFit.sh
+# cd ./${nameFolderSave} && sbatch launchFit.sh
 
     # Remove move_to_chan script
     rm ${ROOT_FOLDER}/${nt_dir}/move_to_chan.sh

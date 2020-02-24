@@ -33,9 +33,6 @@ esac
 # elif [ ${channelFit} == 'vecg5' ]; then      # Vector / Pseudoscalar
 #     lookFolder="vecg5Ratio_Folder"
 # fi
-
-## This is the name of the folder to move -- pseudoscalar
-
 for meson in $( ls -d concMeson* )
 do
 
@@ -62,12 +59,24 @@ do
     # Copy the launch_fit file inside the folder to launch jobs
     cp ${RUN_FOLDER}/utils/launch_fit.sh \
         ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
-    
-    # Copy the sed changes inside the folder
-    cp ${RUN_FOLDER}/utils/sed_changes.sh \
-        ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
-
-    # Sed all the values using sed_changes.sh
-    ( cd ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/ && bash sed_changes.sh )
-
 done
+
+# Copy the sed changes inside the folder
+cp ${RUN_FOLDER}/utils/sed_changes.sh \
+    ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
+
+# Copy the fit code inside the folder
+cp ${RUN_FOLDER}/utils/fit_code.tar.gz \
+    ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
+
+# Sed all the values using sed_changes.sh
+( cd ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/ && \
+    bash sed_changes.sh )
+
+# Extract the fit_code folder
+( cd ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/ && \
+    tar -xf fit_code.tar.gz )
+
+# Remove uneeded sed file
+rm ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/sed_changes.sh
+
