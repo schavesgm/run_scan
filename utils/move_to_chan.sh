@@ -3,6 +3,7 @@
 # Script to move the interest data to a fittin data
 type_calc=$1
 ROOT=$( pwd )
+FITS_FOLDER="Fits"
 
 case $2 in  # Define the channel type
     'g5') 
@@ -48,10 +49,25 @@ do
     cd $ROOT
 
     # Generate a folder to hold the data
-    mkdir -p ./${name_fit_folder}/${type_calc}/${chan_flavor}
+    mkdir -p ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/${chan_flavor}
 
     # Copy the files inside the folder relative to the channel
     cp ./${meson}/${type_calc}/${channel_save_name}/* \
-        ./${name_fit_folder}/${type_calc}/${chan_flavor}/
+        ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/${chan_flavor}/
+    
+    # Copyt automat_fit file inside the folder to launch jobs
+    cp ${RUN_FOLDER}/utils/automatic_fit.sh \
+        ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
+    
+    # Copy the launch_fit file inside the folder to launch jobs
+    cp ${RUN_FOLDER}/utils/launch_fit.sh \
+        ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
+    
+    # Copy the sed changes inside the folder
+    cp ${RUN_FOLDER}/utils/sed_changes.sh \
+        ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/
+
+    # Sed all the values using sed_changes.sh
+    ( cd ./${FITS_FOLDER}/${name_fit_folder}/${type_calc}/ && bash sed_changes.sh )
 
 done
