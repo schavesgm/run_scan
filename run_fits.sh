@@ -2,6 +2,9 @@
 
 # Script to fit all the possible temperatures of a given channel
 
+# -- VARIABLES
+export TYPE_CALC="$2"
+
 # -- GLOBALS
 export NUM_MPI_PROC="40"
 export BIN_SIZE="36"
@@ -11,12 +14,10 @@ export RES_FACTOR="1e9"
 export MAX_CHISQ="100000"
 
 # -- These ones are dependent of the fit, change after
-export RES_BOOL=1
 export INIT_GUESS=( 1 0 0 )
 export DIM_PARAMS=2
 export ANSATZ="cosh"
 export CHANNEL_FIT="g5"
-export TYPE_CALC="ll"
 
 
 # -- GLOBAL DIRECTORIES
