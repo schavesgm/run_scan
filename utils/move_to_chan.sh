@@ -7,35 +7,27 @@ FITS_FOLDER="Fits"
 # Define the variables from the input parameters
 source ${RUN_FOLDER}/utils/function_exp.sh
 exp_vals $1 $2 $3
-echo ${INIT_GUESS[@]}
 
-case $1 in  # Define the channel type
+case $1 in  # Define all kinds of channel types available
     "g5") 
-        name_fit_folder="Pseudoscalar"
+        name_fit_folder="Pseudoscalar"              # Pseudoscalar - 0-+
         channel_save_name="g5_Folder" ;;
+    "vec")
+        name_fit_folder="Vector_Spatial"            # Vector - 1--
+        channel_save_name="vecConc_Folder" ;;
+    "ax_plus")
+        name_fit_folder="Ax_plus_Spatial"           # Axial plus - 1++
+        channel_save_name="axplusConc_Folder" ;;
+    "ax_minus")
+        name_fit_folder="Ax_minus_Spatial"          # Axial minus - 1+-
+        channel_save_name="axminusConc_Folder" ;;
+    "g0")
+        name_fit_folder="Scalar"                    # Scalar - O++
+        channel_save_name="g0_Folder" ;;
     *)
-        echo "Channel name not currently defined" ;;
+        echo "Channel name not currently defined" 
+        exit 1 ;;
 esac
-
-# if [ ${channelFit} == 'g5' ]; then           # Pseudoscalar
-#     lookFolder="g5_Folder"
-# elif [ ${channelFit} == 'vec' ]; then        # Conc vector
-#     lookFolder="vecConc_Folder"
-# elif [ ${channelFit} == 'ax_plus' ]; then    # Conc axial plus
-#     lookFolder="axConc_Folder"
-# elif [ ${channelFit} == 'ax_minus' ]; then   # Conc axial minus
-#     lookFolder="tespConc_Folder"
-# elif [ ${channelFit} == 'g0' ]; then         # Scalar
-#     lookFolder="g0_Folder"
-# elif [ ${channelFit} == 'g6' ]; then         # Temporal axial \gamma_0
-#     lookFolder="g6_Folder"
-# elif [ ${channelFit} == 'axvec' ]; then      # Axial / Vector
-#     lookFolder="axvecRatio_Folder"
-# elif [ ${channelFit} == 'g0g5' ]; then       # Scalar / Pseudoscalar
-#     lookFolder="g0g5Ratio_Folder"
-# elif [ ${channelFit} == 'vecg5' ]; then      # Vector / Pseudoscalar
-#     lookFolder="vecg5Ratio_Folder"
-# fi
 
 for meson in $( ls -d concMeson* )
 do
