@@ -37,22 +37,22 @@ echo "# --" > ./$foldName/$resultFile
 dirInput="./${foldName}/input.in"
 
 ## Copy the fitting code inside the folder
-tar -xvf cppFitCode.tar.gz
+tar -xvf fit_code.tar.gz
 
 # Change the time extent of the function to fit
 sed -i "/\\\#define TIME_EXTENT/c\\\#define TIME_EXTENT ${timePoints}" \
-       ./cppfitCode.tarball/fitMain.cpp
+       ./fit_code/fitMain.cpp
 
 case ${ansatz} in 
     'cosh')
         sed -i "/\\\#define ANSATZ/c\\\#define ANSATZ 0" \
-            ./cppfitCode.tarball/fitMain.cpp ;;
+            ./fit_code/fitMain.cpp ;;
     'cosh-void')
         sed -i "/\\\#define ANSATZ/c\\\#define ANSATZ 2" \
-            ./cppfitCode.tarball/fitMain.cpp ;;
+            ./fit_code/fitMain.cpp ;;
     'exp')
         sed -i "/\\\#define ANSATZ/c\\\#define ANSATZ 1" \
-            ./cppfitCode.tarball/fitMain.cpp ;;
+            ./fit_code/fitMain.cpp ;;
 esac 
 
 # -- LOOP OVER DIFFERENT TIME WINDOWS 
@@ -73,7 +73,7 @@ do
     echo "I am using TW = $inTime - $fnTime" 
 
     # Copy inside the folder
-    cp -r ./cppfitCode.tarball/* ${foldName}
+    cp -r ./fit_code/* ${foldName}
     
     # Change input file
     fileName=$( ls ./${foldName}/*.${typeOfHadron} | xargs -n 1 basename )
