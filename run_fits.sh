@@ -15,7 +15,7 @@ source ./globals.sh
 export ROOT_FOLDER=$( cd ../ && pwd )
 export RUN_FOLDER=$( pwd )
 
-FOLDERS=$( cd ../ && ls -d data/128x32 | sort -n )
+FOLDERS=$( cd ../ && ls -d data/*x32 | sort -n )
 for nt_dir in ${FOLDERS[@]}
 do  
     
