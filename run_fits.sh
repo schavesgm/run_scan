@@ -2,8 +2,11 @@
 
 # Script to fit all the possible temperatures of a given channel
 
-# -- VARIABLES
-export TYPE_CALC="$2"
+# Check if variables are defined, they are needed
+if [ -z ${1+x} ] || [ -z ${2+x} ] || [ -z ${3+x} ]; then 
+   echo "You need to define the input variables 'channel' 'type' 'ansatz'"
+   exit 1
+fi
 
 # -- GLOBALS
 export NUM_MPI_PROC="40"
@@ -12,13 +15,6 @@ export NUM_BOOTBEST="20000"
 export NUM_BOOTFIT="20000"
 export RES_FACTOR="1e9"
 export MAX_CHISQ="100000"
-
-# -- These ones are dependent of the fit, change after
-export INIT_GUESS=( 1 0 0 )
-export DIM_PARAMS=2
-export ANSATZ="cosh"
-export CHANNEL_FIT="g5"
-
 
 # -- GLOBAL DIRECTORIES
 export ROOT_FOLDER=$( cd ../ && pwd )
@@ -36,10 +32,10 @@ do
     cp ${RUN_FOLDER}/utils/move_to_chan.sh ${ROOT_FOLDER}/${nt_dir} 
 
     # Execute it with the current properties
-    ( cd ${ROOT_FOLDER}/${nt_dir} && bash move_to_chan.sh ${CHANNEL_FIT} )
+    ( cd ${ROOT_FOLDER}/${nt_dir} && bash move_to_chan.sh $1 $2 $3 )
 
     # Run the slurm job using launchFit.sh
-    # cd ./${nameFolderSave} && sbatch launchFit.sh
+    # ( cd ${ROOT_FOLDER}/${nt_dir}/${ && sbatch launchFit.sh
 
     # Remove move_to_chan script
     rm ${ROOT_FOLDER}/${nt_dir}/move_to_chan.sh

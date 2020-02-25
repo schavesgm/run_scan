@@ -4,6 +4,11 @@
 ROOT=$( pwd )
 FITS_FOLDER="Fits"
 
+# Define the variables from the input parameters
+source ${RUN_FOLDER}/utils/function_exp.sh
+exp_vals $1 $2 $3
+echo ${INIT_GUESS[@]}
+
 case $1 in  # Define the channel type
     "g5") 
         name_fit_folder="Pseudoscalar"
@@ -12,7 +17,6 @@ case $1 in  # Define the channel type
         echo "Channel name not currently defined" ;;
 esac
 
-        
 # if [ ${channelFit} == 'g5' ]; then           # Pseudoscalar
 #     lookFolder="g5_Folder"
 # elif [ ${channelFit} == 'vec' ]; then        # Conc vector
@@ -32,6 +36,7 @@ esac
 # elif [ ${channelFit} == 'vecg5' ]; then      # Vector / Pseudoscalar
 #     lookFolder="vecg5Ratio_Folder"
 # fi
+
 for meson in $( ls -d concMeson* )
 do
 
@@ -51,7 +56,7 @@ do
     cp ./${meson}/${TYPE_CALC}/${channel_save_name}/* \
         ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/${chan_flavor}/
     
-    # Copyt automat_fit file inside the folder to launch jobs
+    # Copy automat_fit file inside the folder to launch jobs
     cp ${RUN_FOLDER}/utils/automatic_fit.sh \
         ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/
     
@@ -70,7 +75,7 @@ cp ${RUN_FOLDER}/utils/fit_code.tar.gz \
 
 # Sed all the values using sed_changes.sh
 ( cd ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/ && \
-    bash sed_changes.sh )
+    bash sed_changes.sh ${INIT_GUESS[@]} )
 
 # Extract the fit_code folder
 ( cd ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/ && \
@@ -78,4 +83,8 @@ cp ${RUN_FOLDER}/utils/fit_code.tar.gz \
 
 # Remove uneeded sed file
 rm ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/sed_changes.sh
+
+# Launch batch job using launch_fit.sh
+( cd ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/ && \
+    sbatch launch_fit.sh $1 )
 

@@ -3,6 +3,7 @@
 # Script to be called from run_fit to generate all the needed sed manipulations
 
 # -- MANIPULATE THE FOLDERS
+INIT_GUESS=( ${1} ${2} ${3} )
 
 # Inside automatic_fit.sh
 sed -i "/numProc=/c\numProc=${NUM_MPI_PROC}" automatic_fit.sh
@@ -18,7 +19,7 @@ sed -i "/ansatz=/c\ansatz=${ANSATZ}" automatic_fit.sh
 sed -i "/timePoints=/c\timePoints=${TIME_POINTS}" automatic_fit.sh 
 
 # Inside launch_fit.sh
-sed -i "/#SBATCH --job-name/c\\\#SBATCH --job-name=${TIME_POINTS}_${CHANNEL_FIT}_${TYPE_CALC}}" \
+sed -i "/#SBATCH --job-name/c\\\#SBATCH --job-name=${TIME_POINTS}_${CHANNEL_FIT}_${TYPE_CALC}" \
     launch_fit.sh
 sed -i "/#SBATCH --output/c\\\#SBATCH --output=${TIME_POINTS}_${CHANNEL_FIT}_${TYPE_CALC}" \
     launch_fit.sh
