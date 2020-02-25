@@ -8,13 +8,8 @@ if [ -z ${1+x} ] || [ -z ${2+x} ] || [ -z ${3+x} ]; then
    exit 1
 fi
 
-# -- GLOBALS
-export NUM_MPI_PROC="40"
-export BIN_SIZE="36"
-export NUM_BOOTBEST="20000"
-export NUM_BOOTFIT="20000"
-export RES_FACTOR="1e9"
-export MAX_CHISQ="100000"
+# Source globals 
+source ./globals.sh
 
 # -- GLOBAL DIRECTORIES
 export ROOT_FOLDER=$( cd ../ && pwd )
