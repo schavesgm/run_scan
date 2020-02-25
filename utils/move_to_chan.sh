@@ -29,6 +29,7 @@ case $1 in  # Define all kinds of channel types available
         exit 1 ;;
 esac
 
+PATH_TO_FIT="./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/${ANSATZ}"
 for meson in $( ls -d concMeson* )
 do
 
@@ -42,41 +43,31 @@ do
     cd $ROOT
 
     # Generate a folder to hold the data
-    mkdir -p ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/${chan_flavor}
+    mkdir -p ${PATH_TO_FIT}/${chan_flavor}
 
     # Copy the files inside the folder relative to the channel
-    cp ./${meson}/${TYPE_CALC}/${channel_save_name}/* \
-        ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/${chan_flavor}/
-    
-    # Copy automat_fit file inside the folder to launch jobs
-    cp ${RUN_FOLDER}/utils/automatic_fit.sh \
-        ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/
-    
-    # Copy the launch_fit file inside the folder to launch jobs
-    cp ${RUN_FOLDER}/utils/launch_fit.sh \
-        ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/
+    cp ./${meson}/${TYPE_CALC}/${channel_save_name}/* ${PATH_TO_FIT}/${chan_flavor}/
+
+    # Copy automatic_fit file inside the folder to launch jobs
+    cp ${RUN_FOLDER}/utils/{automatic_fit.sh,launch_fit.sh} ${PATH_TO_FIT}
+
 done
 
 # Copy the sed changes inside the folder
-cp ${RUN_FOLDER}/utils/sed_changes.sh \
-    ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/
+cp ${RUN_FOLDER}/utils/sed_changes.sh ${PATH_TO_FIT} 
 
 # Copy the fit code inside the folder
-cp ${RUN_FOLDER}/utils/fit_code.tar.gz \
-    ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/
+cp ${RUN_FOLDER}/utils/fit_code.tar.gz ${PATH_TO_FIT}
 
 # Sed all the values using sed_changes.sh
-( cd ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/ && \
-    bash sed_changes.sh ${INIT_GUESS[@]} )
+( cd ${PATH_TO_FIT} && bash sed_changes.sh ${INIT_GUESS[@]} )
 
 # Extract the fit_code folder
-( cd ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/ && \
-    tar -xf fit_code.tar.gz )
+( cd ${PATH_TO_FIT} && tar -xf fit_code.tar.gz )
 
-# Remove uneeded sed file
-rm ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/sed_changes.sh
+# Remove uneeded sed file after being used
+rm ${PATH_TO_FIT}/sed_changes.sh
 
 # Launch batch job using launch_fit.sh
-( cd ./${FITS_FOLDER}/${name_fit_folder}/${TYPE_CALC}/ && \
-    sbatch launch_fit.sh $1 )
+( cd ${PATH_TO_FIT} && sbatch launch_fit.sh $1 )
 

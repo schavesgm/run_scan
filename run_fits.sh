@@ -34,9 +34,6 @@ do
     # Execute it with the current properties
     ( cd ${ROOT_FOLDER}/${nt_dir} && bash move_to_chan.sh $1 $2 $3 )
 
-    # Run the slurm job using launchFit.sh
-    # ( cd ${ROOT_FOLDER}/${nt_dir}/${ && sbatch launchFit.sh
-
     # Remove move_to_chan script
     rm ${ROOT_FOLDER}/${nt_dir}/move_to_chan.sh
 
