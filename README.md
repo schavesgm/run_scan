@@ -1,4 +1,4 @@
-# Bash scripts to automatise the production of data in SuperComputing Wales
+# Automatic fitting of correlation functions on SLURM based servers.
 ---
 
 These set of scripts automatise the production of fitted parameters on the
