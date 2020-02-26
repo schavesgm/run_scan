@@ -36,4 +36,9 @@ temperatures and flavors for a given channel, the following command shall be use
 
 * __fetch_data.sh__. Script to retrieve the data fitted and organise it inside the folder
 `../outputs`. The data is then fetched for each temperature and meson and cleaned to make
-it easier to analyse afterwards. It uses scripts from `/utils`.
+it easier to analyse afterwards. It uses scripts from `/utils`. In order to run the
+script, the following command shall be used,
+
+```bash
+    bash fetch_data.sh channel type ansatz
+```
