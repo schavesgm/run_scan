@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=128x32_g5_ll
 #SBATCH --output=128x32_g5_ll
-#SBATCH --error=error_%J.out
+#SBATCH --error=ERROR.OUT
 #SBATCH --ntasks=40
 #SBATCH --tasks-per-node=40
 #SBATCH --array=1
