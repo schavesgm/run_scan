@@ -1,12 +1,8 @@
 #!/bin/bash -- login
 
 # Script to fit all the possible temperatures of a given channel
-
-# Check if variables are defined, they are needed
-if [ -z ${1+x} ] || [ -z ${2+x} ] || [ -z ${3+x} ]; then 
-   echo "You need to define the input variables 'channel' 'type' 'ansatz'"
-   exit 1
-fi
+source ./utils/function_exp.sh
+check_values $1 $2 $3
 
 # Source globals 
 source ./globals.sh
