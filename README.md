@@ -32,3 +32,8 @@ temperatures and flavors for a given channel, the following command shall be use
     2. ``exp`` -- Exponential ansatz
     3. ``cosh-void`` -- Cosh + Constant term ansatz
 
+## Organisation of data 
+
+* __fetch_data.sh__. Script to retrieve the data fitted and organise it inside the folder
+`../outputs`. The data is then fetched for each temperature and meson and cleaned to make
+it easier to analyse afterwards. It uses scripts from `/utils`.
