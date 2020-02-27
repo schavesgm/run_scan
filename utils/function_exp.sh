@@ -3,7 +3,8 @@
 function check_values() {
     # Function to check if the needed input values are set and to check the
     # values they have
-
+    
+    echo "--"
     # Check if variables are defined, they are needed
     if [ -z ${1+x} ] || [ -z ${2+x} ] || [ -z ${3+x} ]; then 
        echo "You need to define the input variables 'channel' 'type' 'ansatz'"

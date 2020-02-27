@@ -60,7 +60,8 @@ do
         cp ./utils/clean_data.sh ${DIR_OUTPUT}/${TIME_POINTS}/${meson}
         
         ( cd ${DIR_OUTPUT}/${TIME_POINTS}/${meson}/ && bash clean_data.sh )
-        
+        ( cd ${DIR_OUTPUT}/${TIME_POINTS}/${meson}/ && rm clean_data.sh )
+
     done
 
 done
