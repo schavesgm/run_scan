@@ -82,7 +82,12 @@ function exp_vals() {
             export CHANNEL_FIT="g5"
             export NAME_CHANNEL="Pseudoscalar"
             set_init $3 1
-            set_bool ${TYPE_CALC} 'Ratio' ;;
+            set_bool ${TYPE_CALC} 'No' ;;
+       'vec')
+            export CHANNEL_FIT="vec"
+            export NAME_CHANNEL="Vector_Spatial"
+            set_init $3 1
+            set_bool ${TYPE_CALC} 'No' ;;
        *)
            echo "Channel is not currently defined"
            break ;;
