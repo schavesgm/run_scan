@@ -73,5 +73,5 @@ cp ${RUN_FOLDER}/utils/fit_code.tar.gz ${PATH_TO_FIT}
 rm ${PATH_TO_FIT}/sed_changes.sh
 
 # Launch batch job using launch_fit.sh
-# ( cd ${PATH_TO_FIT} && sbatch launch_fit.sh $1 )
+( cd ${PATH_TO_FIT} && sbatch launch_fit.sh $1 )
 

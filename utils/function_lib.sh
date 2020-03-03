@@ -83,11 +83,26 @@ function exp_vals() {
             export NAME_CHANNEL="Pseudoscalar"
             set_init $3 1
             set_bool ${TYPE_CALC} 'No' ;;
+       'g0')
+            export CHANNEL_FIT="g0"
+            export NAME_CHANNEL="Scalar"
+            set_init $3 1
+            set_bool ${TYPE_CALC} 'No' ;;
        'vec')
             export CHANNEL_FIT="vec"
             export NAME_CHANNEL="Vector_Spatial"
-            set_init $3 1
+            set_init $3 -0.2
             set_bool ${TYPE_CALC} 'No' ;;
+       'ax_plus')
+           export CHANNEL_FIT="ax_plus"
+           export NAME_CHANNEL="Ax_plus_Spatial"
+           set_init $3 -0.2
+           set_ bool ${TYPE_CALC} 'No' ;;
+       'ax_minus')
+           export CHANNEL_FIT="ax_minus"
+           export NAME_CHANNEL="Ax_minus_Spatial"
+           set_init $3 -0.2
+           set_ bool ${TYPE_CALC} 'No' ;;
        *)
            echo "Channel is not currently defined"
            break ;;
@@ -107,8 +122,16 @@ function conc_values() {
             mkdir -p vecConc_Folder
             cat g2_Folder/* g3_Folder/* g4_Folder/* > \
                 vecConc_Folder/Gen2l_${2}x32.meson.vec.${3} ;;
+        'ax_plus')
+            mkdir -p axplusConc_Folder
+            cat g7_Folder/* g8_Folder/* g9_Folder/* > \
+                axplusConc_Folder/Gen2l_${2}x32.meson.vec.${3} ;;
+        'ax_minus')
+            mkdir -p axminusConc_Folder
+            cat g13_Folder/* g14_Folder/* g15_Folder/* > \
+                axminusonc_Folder/Gen2l_${2}x32.meson.vec.${3} ;;
         *)
-            echo "Channel $1 does not need to be concatenated"
+            echo "Not needed concatenation for $1"
     esac
 
 

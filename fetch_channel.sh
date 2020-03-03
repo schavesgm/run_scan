@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Script to fetch the data from a calculation
+source ./utils/function_lib.sh
 
 # Check the input values
 check_values $1 $2 $3
@@ -9,7 +10,6 @@ check_values $1 $2 $3
 source ./globals.sh
 
 # Source function values to get the data from
-source ./utils/function_lib.sh
 exp_vals $1 $2 $3
 echo 
 
