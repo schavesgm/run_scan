@@ -5,7 +5,7 @@ ROOT=$( pwd )
 FITS_FOLDER="Fits"
 
 # Define the variables from the input parameters
-source ${RUN_FOLDER}/utils/function_exp.sh
+source ${RUN_FOLDER}/utils/function_lib.sh
 exp_vals $1 $2 $3
 
 case $1 in  # Define all kinds of channel types available
@@ -35,6 +35,10 @@ do
 
     # Move into the hadron with definite type
     cd ${meson}/${TYPE_CALC}
+
+    # Create the concatenation of files if needed
+    flavor=$( echo $meson | sed 's/concMeson.//' )
+    conc_values $1 ${TIME_POINTS} ${flavor}
 
     # Get the name of the file to generate its Folder_*
     chan_flavor=$( cd ${channel_save_name} && ls | sed "s/^/Folder_/" )
@@ -69,5 +73,5 @@ cp ${RUN_FOLDER}/utils/fit_code.tar.gz ${PATH_TO_FIT}
 rm ${PATH_TO_FIT}/sed_changes.sh
 
 # Launch batch job using launch_fit.sh
-( cd ${PATH_TO_FIT} && sbatch launch_fit.sh $1 )
+# ( cd ${PATH_TO_FIT} && sbatch launch_fit.sh $1 )
 

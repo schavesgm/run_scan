@@ -3,14 +3,13 @@
 # Script to fetch the data from a calculation
 
 # Check the input values
-source ./utils/function_exp.sh
 check_values $1 $2 $3
 
 # Source global values
 source ./globals.sh
 
 # Source function values to get the data from
-source ./utils/function_exp.sh
+source ./utils/function_lib.sh
 exp_vals $1 $2 $3
 echo 
 

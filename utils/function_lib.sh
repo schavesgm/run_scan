@@ -95,3 +95,23 @@ function exp_vals() {
    esac
 }
 
+function conc_values() {
+    # Function to concatenate the correlation function of a given
+    # channel into the same file. It is used by some channels as 
+    # vector, axial...
+    # Parameter $1 is the channel name
+    # Parameter $2 is the inverse of the temperature
+    # Parameter $3 is the meson to be concatenated
+    case $1 in 
+        'vec')
+            mkdir -p vecConc_Folder
+            cat g2_Folder/* g3_Folder/* g4_Folder/* > \
+                vecConc_Folder/Gen2l_${2}x32.meson.vec.${3} ;;
+        *)
+            echo "Channel $1 does not need to be concatenated"
+    esac
+
+
+
+
+}

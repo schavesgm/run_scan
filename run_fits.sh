@@ -1,7 +1,7 @@
 #!/bin/bash -- login
 
 # Script to fit all the possible temperatures of a given channel
-source ./utils/function_exp.sh
+source ./utils/function_lib.sh
 check_values $1 $2 $3
 
 # Source globals 
