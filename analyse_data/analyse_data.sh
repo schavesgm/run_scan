@@ -8,9 +8,13 @@ INFOR=$( pwd )
 INFOR=$( echo $INFOR | sed 's/.*Analyse_Data\///' )
 
 # Retrieve the data from the path information
-CHANNEL=$( echo $INFOR | sed -r 's/([a-zA-Z]+)\/([ls]{2})\/([a-z]+-[a-z]+)/\1/' )
-TYPE_CALC=$( echo $INFOR | sed -r 's/([a-zA-Z]+)\/([ls]{2})\/([a-z]+-[a-z]+)/\2/' )
-ANSATZ=$( echo $INFOR | sed -r 's/([a-zA-Z]+)\/([ls]{2})\/([a-z]+-[a-z]+)/\3/' )
+CHANNEL=$( echo $INFOR | sed -r 's/([a-zA-Z_]+)\/([ls]{2})\/([a-z]+-[a-z]+)/\1/' )
+TYPE_CALC=$( echo $INFOR | sed -r 's/([a-zA-Z_]+)\/([ls]{2})\/([a-z]+-[a-z]+)/\2/' )
+ANSATZ=$( echo $INFOR | sed -r 's/([a-zA-Z_]+)\/([ls]{2})\/([a-z]+-[a-z]+)/\3/' )
+
+# Print out information
+echo "$CHANNEL - $TYPE_CALC - $ANSATZ"
+echo "--"
 
 # Retrieve the dimensions
 if [ $ANSATZ == 'cosh' ] || [ $ANSATZ == 'exp' ]; then
