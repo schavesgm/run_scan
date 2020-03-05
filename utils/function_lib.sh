@@ -129,7 +129,7 @@ function conc_values() {
         'ax_minus')
             mkdir -p axminusConc_Folder
             cat g13_Folder/* g14_Folder/* g15_Folder/* > \
-                axminusonc_Folder/Gen2l_${2}x32.meson.ax_minus.${3} ;;
+                axminusConc_Folder/Gen2l_${2}x32.meson.ax_minus.${3} ;;
         *)
             echo "Not needed concatenation for $1"
     esac
