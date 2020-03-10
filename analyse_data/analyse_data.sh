@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Check if directory exists
+if [ -d 'data_analysed' ]; then
+    echo 'Directory already exists.'
+    echo 'I am not overwritting it.'
+    exit 1
+fi
+
 # Global variables
 NUM_BOOTS="20000"
 BIN_SIZE="36"
@@ -81,7 +88,7 @@ do
     # Now plot all the data
     for param in ${PARAMS[@]} 
     do
-        echo_plot ${meson} ${name_save} ./data_analysed/${meson}/plots.gn ${param}
+        echo_plot ${meson} ${name_save} ./data_analysed/${meson}/plots.gn ${param} "${CHANNEL} - ${TYPE_CALC}"
         (  cd ./data_analysed/${meson}/ && \
            gnp2tex -f plots.gn -s ${param}_${meson}.pdf )
     done
@@ -90,7 +97,26 @@ do
 
 done
 
-# Move the plots inside a folder
-mkdir -p data_analysed/plots/mass data_analysed/plots/void
-cp ./data_analysed/*/mass* data_analysed/plots/mass
-cp ./data_analysed/*/void* data_analysed/plots/void
+# Create concatenation of plots and move plots
+mkdir -p ./data_analysed/plots/single/
+mkdir -p ./data_analysed/plots/conc_all/
+for param in ${PARAMS[@]}
+do
+    # Move the single plots
+    mkdir -p ./data_analysed/plots/single/${param}
+    cp ./data_analysed/*/${param}* \
+        data_analysed/plots/single/${param}
+
+    mkdir -p ./data_analysed/plots/conc_all/${param}
+    cp ./data_analysed/*/params* \
+        ./data_analysed/plots/conc_all/${param}
+    ( cd data_analysed/plots/conc_all/${param} && \
+        plot_conc ${param} ${CHANNEL} ${TYPE_CALC} )
+    ( cd data_analysed/plots/conc_all/${param} &&
+        gnp2tex -f ./plot_it.gn \
+        -s conc_${param}_${CHANNEL}_${TYPE_CALC}.pdf )
+    rm ./data_analysed/plots/conc_all/${param}/params*
+    rm ./data_analysed/plots/conc_all/${param}/plot_it.gn
+done
+# rm ./data_analysed/plots/single/plot_it.gn
+# rm ./data_analysed/plots/single/params*
