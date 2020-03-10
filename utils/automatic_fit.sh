@@ -40,18 +40,18 @@ dirInput="./${foldName}/input.in"
 tar -xvf fit_code.tar.gz
 
 # Change the time extent of the function to fit
-sed -i "/\\\#define TIME_EXTENT/c\\\#define TIME_EXTENT ${timePoints}" \
+sed -i "/\#define TIME_EXTENT/c\#define TIME_EXTENT ${timePoints}" \
        ./fit_code/fitMain.cpp
 
 case ${ansatz} in 
     'cosh')
-        sed -i "/\\\#define ANSATZ/c\\\#define ANSATZ 0" \
+        sed -i "/\#define ANSATZ/c\#define ANSATZ 0" \
             ./fit_code/fitMain.cpp ;;
     'cosh-void')
-        sed -i "/\\\#define ANSATZ/c\\\#define ANSATZ 2" \
+        sed -i "/\#define ANSATZ/c\#define ANSATZ 2" \
             ./fit_code/fitMain.cpp ;;
     'exp')
-        sed -i "/\\\#define ANSATZ/c\\\#define ANSATZ 1" \
+        sed -i "/\#define ANSATZ/c\#define ANSATZ 1" \
             ./fit_code/fitMain.cpp ;;
 esac 
 
