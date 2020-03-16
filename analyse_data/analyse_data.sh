@@ -118,5 +118,3 @@ do
     rm ./data_analysed/plots/conc_all/${param}/params*
     rm ./data_analysed/plots/conc_all/${param}/plot_it.gn
 done
-# rm ./data_analysed/plots/single/plot_it.gn
-# rm ./data_analysed/plots/single/params*
