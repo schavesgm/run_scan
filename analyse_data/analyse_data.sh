@@ -23,6 +23,20 @@ ANSATZ=$( echo $INFOR | sed -r 's/([a-zA-Z_]+)\/([ls]{2})\/([a-z]+(-[a-z]+)?)/\3
 echo "$CHANNEL - $TYPE_CALC - $ANSATZ"
 echo "--"
 
+# Get the channel 
+case ${CHANNEL} in 
+    'Pseudoscalar') 
+        symb='0^{-+}' ;;
+    'Vector_Spatial')
+        symb='1^{--}' ;;
+    'Ax_plus_Spatial')
+        symb='1^{++}' ;;
+    'Ax_minus_Spatial')
+        symb='1^{+-}' ;;
+    'Scalar')
+        symb='0^{++}' ;;
+esac
+
 # Retrieve the dimensions
 if [ $ANSATZ == 'cosh' ] || [ $ANSATZ == 'exp' ]; then
     DIM_PARAMS=2
@@ -88,7 +102,7 @@ do
     # Now plot all the data
     for param in ${PARAMS[@]} 
     do
-        echo_plot ${meson} ${name_save} ./data_analysed/${meson}/plots.gn ${param} "${CHANNEL} - ${TYPE_CALC}"
+        echo_plot ${meson} ${name_save} ./data_analysed/${meson}/plots.gn ${param} "${symb} - ${TYPE_CALC}"
         (  cd ./data_analysed/${meson}/ && \
            gnp2tex -f plots.gn -s ${param}_${meson}.pdf )
     done
@@ -111,7 +125,7 @@ do
     cp ./data_analysed/*/params* \
         ./data_analysed/plots/conc_all/${param}
     ( cd data_analysed/plots/conc_all/${param} && \
-        plot_conc ${param} ${CHANNEL} ${TYPE_CALC} )
+        plot_conc ${param} ${symb} ${TYPE_CALC} )
     ( cd data_analysed/plots/conc_all/${param} &&
         gnp2tex -f ./plot_it.gn \
         -s conc_${param}_${CHANNEL}_${TYPE_CALC}.pdf )
