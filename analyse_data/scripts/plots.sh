@@ -48,7 +48,7 @@ set grid back ls 12
 
 # Set labels and titles
 set xlabel '$\\frac{\\tau}{N_\\tau\\cdot a_\\tau}$'
-set ylabel '\$\\Phi \\cdot a_\\tau$'
+set ylabel '$\\Phi \\cdot a_\\tau$'
 set title '$1 - $4'
 
 plot file u (1/\$1):4:5 w yerr ls 1 notitle, \\
@@ -71,7 +71,7 @@ if [ ${1} == 'mass' ]; then
 elif [ ${1} == 'void' ]; then
     col_val=4
     col_err=5
-    symbol='\\Phi'
+    symbol='\Phi'
 fi
 
 # Get all plot files in the folder
