@@ -86,7 +86,7 @@ function exp_vals() {
         'g0')
             export CHANNEL_FIT="g0"
             export NAME_CHANNEL="Scalar"
-            set_init $3 1
+            set_init $3 -0.2 
             set_bool ${TYPE_CALC} 'No' ;;
         'vec')
             export CHANNEL_FIT="vec"
